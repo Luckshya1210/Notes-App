@@ -13,7 +13,7 @@ const NoteItem = (props) => {
       <div className="card my-3">
 
         <div className="card-body">
-          <div className='d-flex align-items-center'>
+          <div className='d-flex align-items-center' style={{height:'50px'}}>
 
             <h5 className="card-title">{note.title}</h5>
             <i className="fa-regular fa-trash-can mx-2" onClick={() => { deletenote(note._id); props.showAlert("Deleted successfully!", "success") }} ></i>

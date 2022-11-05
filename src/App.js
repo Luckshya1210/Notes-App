@@ -15,6 +15,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import { Navigate } from 'react-router-dom';
 import {useState} from 'react'
+import Menu from './components/Menu';
 function App() {
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type)=>{
@@ -37,10 +38,19 @@ function App() {
       <div className='container'>
       <Routes>
       {/* <Route exact path="/" element={ <Navigate to="/login" /> } /> */}
-          <Route exact path="/" element={<Home showAlert={showAlert}/>} />
+          <Route path="/" element={<Menu />} />
+          <Route exact path="/dashboard" element={<Home showAlert={showAlert}/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/login" element={<Login showAlert={showAlert}/>} />
-          <Route path="/signup" element={<Signup showAlert={showAlert}/>} />      
+          <Route path="/signup" element={<Signup showAlert={showAlert}/>} />    
+          <Route
+            path="*"
+            element={
+              <div>
+                <h2 style={{textAlign:'center'}}>404 Page not found</h2>
+              </div>
+            }
+          />  
         </Routes>
         </div>
     </Router>

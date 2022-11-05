@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 import { redirect } from "react-router-dom";
 const Login = (props) => {
     const [cred, setcred] = useState({email:"",password:""})
@@ -23,7 +24,7 @@ const Login = (props) => {
             localStorage.setItem('token',json.authtoken);
             // redirect("/")
             props.showAlert("Logged in successfully!","success")
-            navigate('/')
+            navigate('/dashboard')
             //to redirect usehistory hook
           }else{
             props.showAlert("Invalid Credentials!","danger")
@@ -35,7 +36,7 @@ const Login = (props) => {
       }
     return (
         <div className='mt-2'>
-            <h2 className='my-2'>Login to continue to iNotebook</h2>
+            <h2 className='my-2'>Login to continue to EverNote</h2>
             <form onSubmit={Handlesubmit}>
                 <div className="my-3">
                     <label htmlFor="email" className="form-label">Email address</label>
@@ -46,9 +47,10 @@ const Login = (props) => {
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" onChange={onchange}  value={cred.password}name="password" id="password"/>
                 </div>
-                
                 <button type="submit" className="btn btn-primary" >Submit</button>
+                <Link className="btn btn-primary mx-2" to="/signup" role="button">Create a new account</Link>
             </form>
+            
         </div>
     )
 }

@@ -19,6 +19,7 @@ const AddNote = (props) => {
   return (
     <>
       <div className='container my-3'>
+        <h2 style={{textAlign:'center'}}>Welcome Back!</h2>
         <h2>Add a note</h2>
         <form className='my-3'>
           <div className="mb-3">

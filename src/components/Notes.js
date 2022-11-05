@@ -1,37 +1,38 @@
 import React from 'react'
-import { useContext, useEffect, useRef,useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const Notes = (props) => {
   const context = useContext(noteContext);
   const navigate = useNavigate()
-  const { notes, getnotes,editnote } = context;
-  const [note, setnote] = useState({ id:"",etitle: "", edescription: "", etag: "" })
+  const { notes, getnotes, editnote } = context;
+  const [note, setnote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
   useEffect(() => {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
 
       getnotes()
     }
-    else{
+    else {
+      //default landing page when token (containing json auth token not present in localstorage ie user not logged in)
       navigate('/login')
     }
     // eslint-disable-next-line
   }, [])
   const updatenote = (currnote) => {
     ref.current.click();
-    setnote({id:currnote._id,etitle:currnote.title,edescription:currnote.description,etag:currnote.tag})
+    setnote({ id: currnote._id, etitle: currnote.title, edescription: currnote.description, etag: currnote.tag })
     // props.showAlert("Updated successfully!","success")
   }
   const handleclick = (e) => {
-    console.log("Updating the note..",note);
+    console.log("Updating the note..", note);
     //to prevent page form reload
     // e.preventDefault();
-    editnote(note.id,note.etitle,note.edescription,note.etag)
+    editnote(note.id, note.etitle, note.edescription, note.etag)
     refclose.current.click();
-    props.showAlert("Updated successfully!","success")
+    props.showAlert("Updated successfully!", "success")
     // addnote(note.title, note.description, note.tag)
   }
   const onchange = (e) => {
@@ -41,8 +42,8 @@ const Notes = (props) => {
   const refclose = useRef(null)
   // console.log(notes.title)
   return (
-    <>
-      <AddNote showAlert={props.showAlert}/>
+    <div style={{ display: 'flex', flexDirection: 'column', }}>
+      <AddNote showAlert={props.showAlert} />
       {/* <!-- Button trigger modal --> */}
       <button type="button" className="btn btn-primary d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
@@ -75,7 +76,7 @@ const Notes = (props) => {
             </div>
             <div className="modal-footer">
               <button type="button" ref={refclose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" className="btn btn-primary" onClick={handleclick}>Save Note</button>
+              <button disabled={note.etitle.length < 5 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handleclick}>Save Note</button>
             </div>
           </div>
         </div>
@@ -83,13 +84,13 @@ const Notes = (props) => {
       <div className='row my-3'>
         <h2>Your notes</h2>
         <div className='container mx-2'>
-        {notes.length===0 && 'No notes to display!'}
+          {notes.length === 0 && 'No notes to display!'}
         </div>
         {notes.map((note) => {
           return <NoteItem key={note._id} updatenote={updatenote} note={note} showAlert={props.showAlert} />;
         })}
       </div>
-    </>
+      </div >
   )
 }
 

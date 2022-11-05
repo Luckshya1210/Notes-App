@@ -23,7 +23,7 @@ const Signup = (props) => {
           if(json.success){
             //Save the auth token and redirect 
             localStorage.setItem('token',json.authtoken);
-            navigate('/');
+            navigate('/login');
             props.showAlert("Account created successfully!","success")
             //  redirect("/");
             //to redirect usehistory hook
@@ -41,7 +41,7 @@ const Signup = (props) => {
       }
     return (
         <div className='mt-2'>
-        <h2 className='my-2'>Signup to continue to iNotebook</h2>
+        <h2 className='my-2'>Signup to continue to EverNote</h2>
             <form onSubmit={handlesubmit}>
                 <div className="my-3">
                     <label htmlFor="name" className="form-label">Name</label>
