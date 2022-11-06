@@ -7,6 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import Navbar from './components/Navbar';
+import LoadingBar from 'react-top-loading-bar'
 import Home from './components/Home';
 import About from './components/About';
 import NoteState from './context/notes/NoteState';
@@ -27,22 +28,27 @@ function App() {
         setAlert(null);
     }, 1500);
 }
+const [progress, setprogress] = useState(0)
   return (
     <>
     <NoteState>
     <Router>
       
-      <Navbar/>
-      
+      <Navbar setprogress={setprogress} />
+      <LoadingBar
+          color='  #ff0000      '
+          progress={progress}
+          height={5}
+        />
       <Alert alert={alert}/>
       <div className='container'>
       <Routes>
       {/* <Route exact path="/" element={ <Navigate to="/login" /> } /> */}
           <Route path="/" element={<Menu />} />
-          <Route exact path="/dashboard" element={<Home showAlert={showAlert}/>} />
+          <Route exact path="/dashboard" element={<Home setprogress={setprogress} showAlert={showAlert}/>} />
           <Route path="/about" element={<About/>} />
-          <Route path="/login" element={<Login showAlert={showAlert}/>} />
-          <Route path="/signup" element={<Signup showAlert={showAlert}/>} />    
+          <Route path="/login" element={<Login setprogress={setprogress} showAlert={showAlert}/>} />
+          <Route path="/signup" element={<Signup setprogress={setprogress} showAlert={showAlert}/>} />    
           <Route
             path="*"
             element={

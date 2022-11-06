@@ -10,12 +10,13 @@ const Notes = (props) => {
   const { notes, getnotes, editnote } = context;
   const [note, setnote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
   useEffect(() => {
-
+    props.setprogress(10);
     if (localStorage.getItem('token')) {
-
+      props.setprogress(100);
       getnotes()
     }
     else {
+      props.setprogress(100);
       //default landing page when token (containing json auth token not present in localstorage ie user not logged in)
       navigate('/login')
     }
@@ -30,8 +31,10 @@ const Notes = (props) => {
     console.log("Updating the note..", note);
     //to prevent page form reload
     // e.preventDefault();
+    props.setprogress(15);
     editnote(note.id, note.etitle, note.edescription, note.etag)
     refclose.current.click();
+    props.setprogress(100);
     props.showAlert("Updated successfully!", "success")
     // addnote(note.title, note.description, note.tag)
   }
@@ -43,7 +46,7 @@ const Notes = (props) => {
   // console.log(notes.title)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', }}>
-      <AddNote showAlert={props.showAlert} />
+      <AddNote showAlert={props.showAlert} setprogress={props.setprogress} />
       {/* <!-- Button trigger modal --> */}
       <button type="button" className="btn btn-primary d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal

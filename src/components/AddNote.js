@@ -8,9 +8,10 @@ const AddNote = (props) => {
   const handleclick = (e) => {
     //to prevent page form reload
     e.preventDefault();
-
+    props.setprogress(15);
     addnote(note.title, note.description, note.tag);
     setnote({ title: "", description: "", tag: "" });
+    props.setprogress(100);
     props.showAlert("Added successfully!","success")
   }
   const onchange = (e) => {

@@ -9,7 +9,8 @@ const Signup = (props) => {
 
         const {name,email,password,cpassword}=cred;
         if(password==cpassword)
-        {const response = await fetch("http://localhost:5000/api/auth/createuser", {
+        {
+            const response = await fetch("http://localhost:5000/api/auth/createuser", {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
@@ -17,20 +18,23 @@ const Signup = (props) => {
           
              body: JSON.stringify({name,email,password}) 
           });
-
+          props.setprogress(15);
           const json=await response.json();
           console.log(json)
           if(json.success){
             //Save the auth token and redirect 
             localStorage.setItem('token',json.authtoken);
             navigate('/login');
+            props.setprogress(100);
             props.showAlert("Account created successfully!","success")
             //  redirect("/");
             //to redirect usehistory hook
           }else{
+            props.setprogress(100);
             props.showAlert("User already exists!","danger")
           }}
           else{
+            props.setprogress(100);
             props.showAlert("Password does not match in confirm password","danger")
            
           }

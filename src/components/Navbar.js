@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-const Navbar = () => {
+const Navbar = (props) => {
   let location = useLocation();
   const navigate = useNavigate();
   React.useEffect(() => {
@@ -9,8 +9,10 @@ const Navbar = () => {
 
   }, [location]);
   const handlelogout = () => {
+    props.setprogress(15);
     localStorage.removeItem('token');
-    navigate('/login')
+    navigate('/login');
+    props.setprogress(100);
   }
   return (
 

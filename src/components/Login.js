@@ -7,7 +7,7 @@ const Login = (props) => {
     const navigate = useNavigate();
     const Handlesubmit=async(e)=>{
         e.preventDefault();
-        
+        props.setprogress(15);
         const response = await fetch("http://localhost:5000/api/auth/login", {
             method: 'POST', 
             headers: {
@@ -16,17 +16,19 @@ const Login = (props) => {
           
              body: JSON.stringify({email:cred.email,password:cred.password}) 
           });
-
+          props.setprogress(70);
           const json=await response.json();
           console.log(json)
           if(json.success){
             //Save the auth token and redirect 
             localStorage.setItem('token',json.authtoken);
             // redirect("/")
+            props.setprogress(100);
             props.showAlert("Logged in successfully!","success")
             navigate('/dashboard')
             //to redirect usehistory hook
           }else{
+            props.setprogress(100);
             props.showAlert("Invalid Credentials!","danger")
           }
     }
